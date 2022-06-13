@@ -1,0 +1,127 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "StorageReport",
+    "description": "A schema to validate the configuration file for the StorageReport",
+    "type": "object",
+    "required": [
+	"cluster_name",
+	"cluster_port",
+	"cluster_username",
+	"cluster_password",
+	"report_type",
+	"report_directory",
+	"frequency"
+    ],
+    "properties": {
+	"cluster_name": {
+            "description": "The Qumulo cluster name to query",
+            "type": "string",
+	    "format": "hostname"
+	},
+	"cluster_port": {
+            "description": "The Qumulo cluster API port",
+            "type": "integer"
+	},
+	"cluster_username": {
+            "description": "Username needed to login to Qumulo cluster",
+            "type": "string"
+	},
+	"cluster_password": {
+            "description": "Password needed to login to Qumulo cluster",
+            "type": "string"
+	},
+	"report_type": {
+            "description": "Type of report to generate",
+            "type": "string",
+	    "oneOf": [
+		{"enum": ["pdf", "html"]}
+	    ]
+	},
+	"report_directory": {
+            "description": "Directory to store reports",
+            "type": "string"
+	},
+	"frequency": {
+	    "type": "object",
+	    "properties": {
+		"when": {
+		    "description": "How often to run the report",
+		    "type": "string",
+		    "enum": ["once", "hourly", "daily", "weekly", "monthly"],
+		    "default": "weekly"
+		},
+		"dayofweek": {
+		    "description": "Day of week to run report", 
+		    "type": "string",
+		    "enum": ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"],
+		    "default": "monday"
+		},
+		"hour": {
+		    "description": "Hour to run the report at [military time only]", 
+		    "type": "string",
+		    "format": "time"
+		}
+	    },
+	    "oneOf":
+	    [
+		{
+		    "properties": {"when": {"const": "once"}},
+		    "required": ["when"]
+		},
+		{
+		    "properties": {"when": {"const": "daily"}},
+		    "required": ["when", "hour"]
+		},
+		{
+		    "properties": {"when": {"const": "weekly"}},
+		    "required": ["when", "hour", "dayofweek"]
+		}
+	    ]
+	},
+	"email": {
+	    "type": "object",
+ 	    "required": [
+		"from",
+		"to",
+		"login",
+		"password",
+		"server",
+		"port"
+	    ],
+	    "properties": {
+		"from": {
+		    "description": "From address for email",
+		    "type": "string"
+		},
+		"to": {
+		    "description": "To address for email", 
+		    "type": "string"
+		},
+		"login": {
+		    "description": "Login name for email server", 
+		    "type": "string"
+		},
+		"password": {
+		    "description": "Login password for email server", 
+		    "type": "string"
+		},
+		"server": {
+		    "description": "Email server address", 
+		    "type": "string",
+		    "format": "hostname"
+		},
+		"port": {
+		    "description": "Port number for email server to authenticate against", 
+		    "type": "integer"
+		},
+		"use": {
+		    "description": "Use either TLS or SSL for connection to email server",
+		    "type": "string",
+		    "oneOf": [
+			{"enum": ["tls", "ssl", "none"]}
+		    ]
+		}
+	    }
+	}
+    }
+}

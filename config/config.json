@@ -1,0 +1,23 @@
+{
+    "cluster_name": "",
+    "cluster_port": 8000,
+    "cluster_username": "",
+    "cluster_password": "",
+    "report_type": "pdf",
+    "report_directory": "./reports",
+    "frequency":
+    {
+	"when": "daily",
+	"hour": "23:00"
+    },
+    "email":
+    {
+	"from": "",
+	"to": "",
+	"login": "",
+	"password": "",
+	"server": "smtp.gmail.com",
+	"port": 465,
+	"use": "ssl"
+    }
+}

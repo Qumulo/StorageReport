@@ -52,8 +52,8 @@ drwxr-xr-x  3 someone  somegroup       96 Mar 29 18:35 reports
 -rw-r--r--  1 someone  somegroup      557 Apr  4 12:15 stop-docker-storagereport.ps1
 -rw-r--r--  1 someone  somegroup      288 Mar 31 12:56 stop-docker-storagereport.sh
 -rw-r--r--  1 someone  somegroup  7226342 Mar 22 08:33 test_email.windows-latest.exe
--rwxr-xr-x  1 someone  somegroup  6145736 Mar 22 08:33 test_email.ubuntu-latest
--rwxr-xr-x  1 someone  somegroup  5394624 Mar 22 08:33 test_email.macos-latest
+-rw-r--r--  1 someone  somegroup  6145736 Mar 22 08:33 test_email.ubuntu-latest
+-rw-r--r--  1 someone  somegroup  5394624 Mar 22 08:33 test_email.macos-latest
 
 ```
 
@@ -144,14 +144,21 @@ We have made this easy for you by including an email test program that will read
 a test email.
 
 In the StorageReport directory, you will find three versions of the test_email program. These are compiled
-versions of the same program for the architectures: `macos-latest`, `ubuntu-latest`, and `windows-latest`. Find the program based upon
-your architecture and run it by typing `./test_email.ubuntu-latest --config ./config/config.json` in a
-terminal window. If there are no errors, a test email should be sent to the recipients in your
-config file.
+versions of the same program for the architectures: `macos-latest`, `ubuntu-latest`, and `windows-latest`. 
+
+Before you run any of these programs, you should verify that you have execute permissions. This needs to be done because the process of executing
+"git clone" to download this software does not guarantee that permissions are preserved. 
+
+Set the execute permissions for either Linux or MacOS with the command:
+
+`chmod a+x test_email.macos-latest (or test_email.ubuntu-latest)`
+
+Now, find the program based upon your architecture and run it by typing `./test_email.ARCHITECTURE --config ./config/config.json` in a
+terminal window. If there are no errors, a test email should be sent to the recipients in your config file.
 
 ### A note about using gmail as a relay
 
-Gmail by default does not allow email clients that don't use OAUTH 2 for authentication (like Thunderbird or Outlook). First you need to enable access to "Less secure apps" on your google settings.
+As of the end of May 2022, Gmail does not allow for "Less secure apps" to use their smtp server as a relay. If you wish to use Gmail, then you will need to setup 2-factor authentication and use a token key as the password in the config.json file. 
 
 Also take into account that email From: header will contain the email address of the account being used to authenticate against the Gmail SMTP server(SMTP_USERNAME), the one on the email will be ignored by Gmail unless you add it as an alias.
 
@@ -162,7 +169,7 @@ in your cloned git directory, you will find a file called "start-docker-storager
 *LINUX*
 
 ```
-export STORAGEREPORT_VERSION=5.0
+export STORAGEREPORT_VERSION=5.2
 export CONFIG_FILE=$(pwd)/config/config.json
 export REPORT_DIRECTORY=$(pwd)/reports
 export TIMEZONE=America/Phoenix
@@ -170,13 +177,13 @@ export TIMEZONE=America/Phoenix
 
 *WINDOWS*
 ```
-$env:STORAGEREPORT_VERSION = "5.0"
+$env:STORAGEREPORT_VERSION = "5.2"
 $env:CONFIG_FILE = "./config/config.json"
 $env:REPORT_DIRECTORY = "./reports"
 $env:TIMEZONE = "Europe/Istanbul"
 ```
 
-You will want to change the first line `STORAGEREPORT_VERSION` to match the major version of the code you are running on your cluster. The reason for this is that we bind the appropriate Qumulo API library for that version in the docker image. If you use a newer docker image than your cluster os version, then you might have an issue where the Qumulo API library cannot connect to the cluster. We only care about the major number of the cluster os version. So if you are running Qumulo Core 5.2.4, then you would set the `STORAGEREPORT_VERSION` to `5.0`.
+You will want to change the first line `STORAGEREPORT_VERSION` to match the major version of the code you are running on your cluster. The reason for this is that we bind the appropriate Qumulo API library for that version in the docker image. If you use a newer docker image than your cluster os version, then you might have an issue where the Qumulo API library cannot connect to the cluster. We only care about the major number of the cluster os version. So if you are running Qumulo Core 5.2.4, then you would set the `STORAGEREPORT_VERSION` to `5.2`.
 
 Next, change the `REPORT_DIRECTORY` to the location where you would like the software to deposit the completed reports. If those reports are emailed as configured in the configuration file (above), then you can consider leaving this value alone. It will place the completed reports in the current github repository location on your machine in the subdirectory `reports`. 
 
@@ -229,7 +236,7 @@ For help planning the deployment see the table of documents below.
 
 |Documentation|Description|
 |-------------|-----------|
-|[Installing Docker on Ubuntu 18.04](./docs/docker-ubuntu18-readme.md) | Details on docker installation on Ubuntu 18.04.|
+|[Installing Docker on Ubuntu](./docs/docker-ubuntu-readme.md) | Details on docker installation on Ubuntu|
 |[Installing Docker on Windows](https://docs.docker.com/desktop/windows/install) | Details on docker installation on Windows|
 
 ## Help

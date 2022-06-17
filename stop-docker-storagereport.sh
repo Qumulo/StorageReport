@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Uncomment if runnning in a Docker Swarm
 
 # docker stack rm storagereport

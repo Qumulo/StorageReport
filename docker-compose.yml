@@ -2,15 +2,15 @@ version: "3.7"
 services:
 
   storagereport:
-    image: qumulo/storagereport:${STORAGEREPORT_VERSION:-5.1}
+    image: qumulo/storagereport:${STORAGEREPORT_VERSION:-5.1.4}
     container_name: storagereport
     environment:
       - TZ=${TIMEZONE:-UTC}
     volumes:
       - type: bind
-        source: ${CONFIG_FILE:-$(pwd)/config/config.json}
+        source: ${CONFIG_FILE:-$$(pwd)/config/config.json}
         target: /code/config/config.json
       - type: bind
-        source: ${REPORT_DIRECTORY:-$(pwd)/reports}
+        source: ${REPORT_DIRECTORY:-$$(pwd)/reports}
         target: /code/reports
         

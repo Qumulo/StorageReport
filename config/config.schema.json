@@ -83,8 +83,6 @@
  	    "required": [
 		"from",
 		"to",
-		"login",
-		"password",
 		"server",
 		"port"
 	    ],

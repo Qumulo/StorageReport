@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export STORAGEREPORT_VERSION=5.1.3
+export STORAGEREPORT_VERSION=5.1.4
 export CONFIG_FILE=$(pwd)/config/config.json
 export REPORT_DIRECTORY=$(pwd)/reports
 export TIMEZONE=America/Phoenix
@@ -13,6 +13,6 @@ export TIMEZONE=America/Phoenix
 # The following line is how you start a docker instance when you do not
 # have a docker swarm
 
-docker-compose up --detach
+docker compose up --detach
 
 

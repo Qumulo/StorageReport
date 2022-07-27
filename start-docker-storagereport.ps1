@@ -1,4 +1,4 @@
-$env:STORAGEREPORT_VERSION = "5.1.3"
+$env:STORAGEREPORT_VERSION = "5.1.4"
 $env:CONFIG_FILE = "./config/config.json"
 $env:REPORT_DIRECTORY = "./reports"
 $env:TIMEZONE = "Europe/Istanbul"

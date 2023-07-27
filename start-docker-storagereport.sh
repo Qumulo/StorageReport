@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export STORAGEREPORT_VERSION=6.0.0
+export STORAGEREPORT_VERSION=6.1.1
 export CONFIG_FILE=$(pwd)/config/config.json
 export REPORT_DIRECTORY=$(pwd)/reports
 export TIMEZONE=America/Phoenix

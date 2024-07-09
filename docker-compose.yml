@@ -2,7 +2,7 @@ version: "3.7"
 services:
 
   storagereport:
-    image: ghcr.io/qumulo/storagereport:${STORAGEREPORT_VERSION:-5.1.4}
+    image: ghcr.io/qumulo/storagereport:latest
     container_name: storagereport
     environment:
       - TZ=${TIMEZONE:-UTC}
